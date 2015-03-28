@@ -17,6 +17,7 @@ trait Neo4jConfig {
   def doTransaction(f: GraphDatabaseService => Unit) = {
     registerShutdownHook
     val tx = graphDb.beginTx()
+
     try {
       f(graphDb)
       tx.success()
