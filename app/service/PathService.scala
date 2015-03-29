@@ -9,12 +9,30 @@ import scala.concurrent._
 
 /**
  * Created by thiago on 3/26/15.
+ *
+ * This is the main class used behind the Rest service to manage the Logistic Network.
+ * It connects with Neo4J through the default interface with default implemented methods.
+ *
  */
 trait PathService extends GenericNeo4jServiceModule {
   object neoService extends GenericCommonNeo4jService {
 
+    /**
+     *
+     * Creates the [[LogisticNetwork]]
+     *
+     * @param logisticNetwork The [[LogisticNetwork]] receveid from the Rest to be created.
+     * @return A scala [[Future]]
+     */
     def createLogisticNetwork(logisticNetwork: LogisticNetwork): Future[Unit] = createNetwork(logisticNetwork)
 
+    /**
+     *
+     * Returns the shortest path between two nodes also calculating the lower cost.
+     *
+     * @param shortestRequest The [[ShortestRequest]] with the necessary information for Dijkstra algorithm.
+     * @return A scala [[Future]] of [[ShortestResult]]
+     */
     def getShortestPathWithCost(shortestRequest: ShortestRequest): Future[ShortestResult] = {
       val origin = isNodePresent(shortestRequest.origin, shortestRequest.map)
       val destination = isNodePresent(shortestRequest.destination, shortestRequest.map)
@@ -30,6 +48,14 @@ trait PathService extends GenericNeo4jServiceModule {
       }
     }
 
+    /**
+     *
+     * A private method to create the [[LogisticNetwork]], checking if the given
+     * nodes already exist or not. In case of yes, the [[org.neo4j.graphdb.Node]] will be reused, if not it will create a new one.
+     *
+     * @param logisticNetwork
+     * @return
+     */
     private def createNetwork(logisticNetwork: LogisticNetwork): Future[Unit] = {
       Future {
         for(n <- logisticNetwork.routes) {

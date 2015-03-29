@@ -11,11 +11,23 @@ import scala.concurrent._
 
 /**
  * Created by thiago on 3/28/15.
+ *
+ * The main controller behind the system.
+ * This  will expose Rest services to work with the Logistic Network.
+ * Through [[routes]] file you can see what service is linked with what rest path.
+ * The services has been designed to be async non-block
+ *
  */
 object PathController extends Controller {
 
   val path = PathService
 
+  /**
+   *
+   * This service receives and create the [[LogisticNetwork]]
+   *
+   * @return HTTP 201 CREATED
+   */
   def createLogisticNetwork = Action.async(BodyParsers.parse.json) { request =>
     val result = request.body.validate[LogisticNetwork]
     result.fold(
@@ -33,6 +45,12 @@ object PathController extends Controller {
     )
   }
 
+  /**
+   *
+   * This service receives the [[ShortestRequest]] as json, process the Shortest Path and returns a [[dto.ShortestResult]]
+   *
+   * @return An instance of [[dto.ShortestResult]]
+   */
   def getShortestPathWithCost = Action.async(BodyParsers.parse.json) { request =>
     try {
       val result = request.body.validate[ShortestRequest]
