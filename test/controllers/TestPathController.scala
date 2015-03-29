@@ -13,7 +13,7 @@ import play.api.test._
 @RunWith(classOf[JUnitRunner])
 class TestPathController extends Specification {
 
-  "A Network" should {
+  "A Rest Service" should {
     "create a logistic network" in new WithApplication {
       val request =
         route(FakeRequest(POST, "/network/create")

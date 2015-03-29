@@ -54,4 +54,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 
 Response:
-{"route":["A","B","D"],"cost":6.25}
+{
+  "route":["A","B","D"],
+  "cost":6.25
+}
