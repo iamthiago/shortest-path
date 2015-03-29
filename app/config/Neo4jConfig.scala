@@ -15,13 +15,13 @@ trait Neo4jConfig {
   private def shutdown = graphDb.shutdown()
 
   def doTransaction(f: GraphDatabaseService => Unit) = {
-    registerShutdownHook
     val tx = graphDb.beginTx()
 
     try {
       f(graphDb)
       tx.success()
     } finally {
+      registerShutdownHook
       tx.close()
     }
   }
