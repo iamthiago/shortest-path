@@ -122,7 +122,7 @@ Yes. To run this project you must meet the following criteria.
 
 ## Tools and Technologies ##
 
-This project uses Scala, Sbt, Play! Framework and Neo4j.
+This project uses Scala, Sbt, Play! Framework and Neo4j. The Git Flow is also a important component, creating features and releases.
 
 To run this application, you must have a valid installation of Scala and SBT.
 Below are all the necessary steps.
@@ -138,6 +138,9 @@ Download and install the latest version of SBT (Scala Build Tool) from [http://w
 ### Neo4j ###
 
 The project is using an embedded neo4j database, so there is no need to have a running instance, but of course, with just a few lines of code, you can change the embedded for a single or cluster installation.
+
+### Git Flow ###
+Check out (GitFlow)[https://github.com/petervanderdoes/gitflow]
 
 ## Tests ##
 
